@@ -7,7 +7,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
-const port = 8000
+const port = 8100
 const __dirname  = dirname(fileURLToPath(import.meta.url))
 app.get("/",(req, res)=>{
     res.sendFile(join( __dirname,"index.html"));
@@ -16,7 +16,7 @@ app.get("/",(req, res)=>{
 io.on("connection", (socket)=>{
     console.log("a user connected");
         socket.on("chat message", (msg)=>{
-            console.log("message:", msg);
+            socket.emit("chat message", msg)
         })
 });
 server.listen(port, ()=>{
